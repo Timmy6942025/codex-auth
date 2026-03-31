@@ -29,8 +29,7 @@ function saveConfig(config: Config): void {
 async function cmdCreate(config: Config, alias?: string) {
   if (!config.gmail || !config.gmail_app_password) {
     console.error('Error: Gmail credentials not configured.');
-    console.error('Run: codex-auth config --set gmail your@email.com');
-    console.error('Run: codex-auth config --set gmail_app_password YOUR_APP_PASSWORD');
+    console.error('Run: codex-auth setup');
     process.exit(1);
   }
 
@@ -102,20 +101,6 @@ function cmdSetup(config: Config) {
   })();
 }
 
-function cmdConfig(config: Config, key?: string, value?: string) {
-  if (key && value !== undefined) {
-    let parsed: string | boolean = value;
-    if (key === 'headless') {
-      parsed = ['true', '1', 'yes'].includes(value.toLowerCase());
-    }
-    (config as unknown as Record<string, unknown>)[key] = parsed;
-    saveConfig(config);
-    console.log(`Set ${key} = ${parsed}`);
-  } else {
-    console.log(JSON.stringify(config, null, 2));
-  }
-}
-
 const program = new Command();
 
 program
@@ -166,16 +151,10 @@ program
 
 program
   .command('config')
-  .description('View or set config')
-  .option('--set <key> <value>', 'Set config value')
-  .action((opts) => {
+  .description('View current config')
+  .action(() => {
     const config = loadConfig();
-    if (opts.set) {
-      const [key, value] = opts.set.split(' ');
-      cmdConfig(config, key, value);
-    } else {
-      cmdConfig(config);
-    }
+    console.log(JSON.stringify(config, null, 2));
   });
 
 program.parse();

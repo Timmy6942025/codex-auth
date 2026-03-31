@@ -1,4 +1,4 @@
-import { GmailReader, GmailReaderError } from './gmail-reader.js';
+import { GmailReader } from './gmail-reader.js';
 import { OAuthFlowError, fullBrowserFlow } from './oauth-flow.js';
 import { TokenStore, TokenStoreError } from './token-store.js';
 
@@ -31,27 +31,11 @@ export class CodexAuthAutomation {
     const targetAlias = alias || this.nextAlias();
 
     console.log(`[Create] Using alias: ${targetAlias}`);
-    console.log('[Create] Waiting for OpenAI verification email (up to 90s)...');
-
-    let otpCode: string | null;
-    try {
-      otpCode = await this.gmail.searchForCode(targetAlias, 90000, 3000);
-    } catch (err) {
-      console.log(`[Create] Gmail error: ${err instanceof Error ? err.message : String(err)}`);
-      return null;
-    }
-
-    if (!otpCode) {
-      console.log('[Create] No verification code found in Gmail');
-      return null;
-    }
-
-    console.log(`[Create] Got OTP code: ${otpCode}`);
     console.log('[Create] Starting browser OAuth flow...');
 
     let tokens: Record<string, unknown>;
     try {
-      tokens = await fullBrowserFlow(targetAlias, otpCode, this.headless);
+      tokens = await fullBrowserFlow(targetAlias, this.gmail, this.headless);
     } catch (err) {
       console.log(`[Create] OAuth flow failed: ${err instanceof Error ? err.message : String(err)}`);
       return null;
