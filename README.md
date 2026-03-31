@@ -1,4 +1,4 @@
-# Codex Auth
+# Codex Auth Automation
 
 Automated OpenAI/Codex account creation using Gmail aliases. Creates new accounts on demand with zero manual intervention.
 
@@ -7,16 +7,13 @@ Automated OpenAI/Codex account creation using Gmail aliases. Creates new account
 1. Uses Gmail aliases (`you+codex1@gmail.com`, `you+codex2@gmail.com`, etc.) — all codes land in your real inbox
 2. Reads verification codes from Gmail via IMAP
 3. Automates the OpenAI OAuth flow with Playwright (headless browser)
-4. Captures and stores OAuth tokens for use with Codex/OpenCode
+4. Captures and stores OAuth tokens directly into `~/.local/share/opencode/auth.json`
 
 ## Quick Start
 
 ```bash
-# Install
-pip install codex-auth
-
-# Install Playwright browser
-playwright install chromium
+# Install (auto-installs Chromium)
+npm install -g codex-auth-automation
 
 # Setup (interactive)
 codex-auth setup
@@ -71,9 +68,9 @@ Each run creates a new account with the next alias (`+codex1`, `+codex2`, etc.).
 
 ## Requirements
 
-- Python 3.10+
+- Node.js 18+
 - Gmail account with App Password enabled
-- Playwright (Chromium browser)
+- Chromium (auto-installed via postinstall)
 
 ## License
 

@@ -1,14 +1,15 @@
 {
   "name": "codex-auth-automation",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Automated OpenAI/Codex account creation with Gmail aliases",
   "main": "dist/index.js",
   "bin": {
     "codex-auth": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "build": "npx tsc",
+    "prepublishOnly": "npx tsc",
+    "postinstall": "npx playwright install chromium"
   },
   "keywords": [
     "openai",
