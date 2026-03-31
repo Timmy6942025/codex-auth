@@ -1,0 +1,36 @@
+{
+  "name": "codex-auth-automation",
+  "version": "0.1.0",
+  "description": "Automated OpenAI/Codex account creation with Gmail aliases",
+  "main": "dist/index.js",
+  "bin": {
+    "codex-auth": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "openai",
+    "codex",
+    "auth",
+    "automation",
+    "gmail"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "imap": "^0.8.19",
+    "mailparser": "^3.7.0",
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/imap": "^0.8.42",
+    "@types/mailparser": "^3.4.5",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
