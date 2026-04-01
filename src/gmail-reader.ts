@@ -33,6 +33,10 @@ export class GmailReader {
     this.appPassword = config.appPassword;
   }
 
+  getAppPassword(): string {
+    return this.appPassword;
+  }
+
   connect(): Promise<Imap> {
     return new Promise((resolve, reject) => {
       const conn = new Imap({
